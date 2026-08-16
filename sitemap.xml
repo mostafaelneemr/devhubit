@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://devhubit.com/</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devhubit.com/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://devhubit.com/?lang=ar" />
+  </url>
+
+  <!-- Project Details / Case Studies Page -->
+  <url>
+    <loc>https://devhubit.com/project-details.html</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devhubit.com/project-details.html" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://devhubit.com/project-details.html?lang=ar" />
+  </url>
+
+  <!-- Blog Details / Insights Page -->
+  <url>
+    <loc>https://devhubit.com/blog-details.html</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://devhubit.com/blog-details.html" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://devhubit.com/blog-details.html?lang=ar" />
+  </url>
+
+</urlset>

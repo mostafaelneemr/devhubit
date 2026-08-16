@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" x-data="blogApp()" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO Title & Meta Description -->
+    <title x-text="lang === 'ar' ? currentArticle.title.ar + ' | مدونة DevHubIT' : currentArticle.title.en + ' | DevHubIT Insights'"></title>
+    <meta name="description" content="Technical engineering articles on database query optimization, bespoke reactive admin dashboard architecture, and smart MVP scalability strategies by DevHubIT.">
+    <meta name="keywords" content="DevHubIT Insights, Database Architecture, Performance Optimization, Custom Admin Dashboards, MVP Scalability">
+    <meta name="author" content="DevHubIT Engineering Team">
+    
+    <!-- Canonical & Robots Metadata -->
+    <link rel="canonical" href="https://devhubit.com/blog-details.html" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Hreflang Annotations -->
+    <link rel="alternate" hreflang="en" href="https://devhubit.com/blog-details.html" />
+    <link rel="alternate" hreflang="ar" href="https://devhubit.com/blog-details.html?lang=ar" />
+    <link rel="alternate" hreflang="x-default" href="https://devhubit.com/blog-details.html" />
+    
+    <!-- Open Graph (OG) Social Metadata -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://devhubit.com/blog-details.html">
+    <meta property="og:title" content="DevHubIT Insights | Technical Engineering & Software Architecture Blog">
+    <meta property="og:description" content="Technical engineering articles on database query optimization, bespoke reactive admin dashboard architecture, and smart MVP scalability strategies by DevHubIT.">
+    <meta property="og:image" content="https://devhubit.com/img/og-preview.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ar_AR">
+    <meta property="og:site_name" content="DevHubIT">
+    
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://devhubit.com/blog-details.html">
+    <meta name="twitter:title" content="DevHubIT Insights | Technical Engineering & Software Architecture Blog">
+    <meta name="twitter:description" content="Technical engineering articles on database query optimization, bespoke reactive admin dashboard architecture, and smart MVP scalability strategies by DevHubIT.">
+    <meta name="twitter:image" content="https://devhubit.com/img/og-preview.png">
+
+    <!-- JSON-LD Structured Data (TechArticle / BlogPosting Schema) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "DevHubIT Software Architecture & Performance Engineering Insights",
+      "image": "https://devhubit.com/img/og-preview.png",
+      "author": {
+        "@type": "Organization",
+        "name": "DevHubIT Engineering Team",
+        "url": "https://devhubit.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "DevHubIT",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://devhubit.com/img/logo.png"
+        }
+      },
+      "inLanguage": ["en", "ar"]
+    }
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            400: '#38bdf8',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Font (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        body { font-family: 'Cairo', sans-serif; overflow-x: hidden; }
+        .glow-cyan {
+            box-shadow: 0 0 50px -10px rgba(56, 189, 248, 0.25);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.25);
+        }
+        pre code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-between">
+
+<!-- Ambient Background Glows -->
+<div class="fixed -top-40 -left-40 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+<div class="fixed top-1/3 -right-40 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+
+<!-- Top Sticky Header -->
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/80 transition-all duration-300 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+        
+        <!-- Logo & Back Link -->
+        <div class="flex items-center gap-4 sm:gap-6">
+            <a href="index.html" class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5 hover:scale-105 transition transform">
+                <div class="w-10 h-10 bg-blue-600/10 text-blue-600 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-sm border border-blue-500/20">
+                    <i class="fa-solid fa-circle-nodes text-blue-600"></i>
+                </div>
+                <span class="font-extrabold text-slate-900">Dev<span class="text-blue-600 font-black">Hub</span><span class="bg-emerald-500/10 text-emerald-600 text-xs px-1.5 py-0.5 rounded-md font-black border border-emerald-500/20 ml-1">IT</span></span>
+            </a>
+
+            <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+
+            <a href="index.html#blog" class="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-brand-600 transition bg-slate-100/80 border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm">
+                <i class="fa-solid" :class="lang === 'ar' ? 'fa-arrow-right' : 'fa-arrow-left'"></i>
+                <span x-text="lang === 'ar' ? 'العودة للمدونة' : 'Back to Blog'"></span>
+            </a>
+        </div>
+
+        <!-- Actions & Language Switcher -->
+        <div class="flex items-center gap-3 sm:gap-4">
+            
+            <!-- Mobile Back Button -->
+            <a href="index.html#blog" class="sm:hidden text-xs font-bold text-slate-600 hover:text-brand-600 transition bg-slate-100 border border-slate-200 p-2 rounded-lg">
+                <i class="fa-solid" :class="lang === 'ar' ? 'fa-arrow-right' : 'fa-arrow-left'"></i>
+            </a>
+
+            <!-- Language Switcher -->
+            <button @click="lang = (lang === 'ar' ? 'en' : 'ar')" 
+                    class="flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-700 hover:border-brand-500 hover:text-brand-600 transition shadow-sm">
+                <i class="fa-solid fa-globe text-brand-600 text-sm"></i>
+                <span x-text="lang === 'ar' ? 'English' : 'عربي'"></span>
+            </button>
+
+            <!-- Get Consultation WhatsApp CTA -->
+            <a :href="'https://wa.me/201555646040?text=' + encodeURIComponent(lang === 'ar' ? 'السلام عليكم، قرأت مقال (' + currentArticle.title.ar + ') وحابب أستفسر عن استشارة تقنية لشركتي' : 'Hello DevHubIT, I read your article (' + currentArticle.title.en + ') and would like a technical consultation')" 
+               target="_blank" 
+               class="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/25 flex items-center gap-2 transition transform hover:-translate-y-0.5">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span class="hidden md:inline" x-text="lang === 'ar' ? 'طلب استشارة فنية' : 'Get Free Consultation'"></span>
+                <span class="md:hidden" x-text="lang === 'ar' ? 'استشارة' : 'Consult'"></span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Main Article Container -->
+<main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-10 lg:py-16 space-y-12">
+
+    <!-- Article Header -->
+    <header class="space-y-6 text-center sm:text-start" data-aos="fade-up">
+        
+        <!-- Metadata Row -->
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+            <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-brand-700 bg-brand-50 border border-brand-200 px-3.5 py-1.5 rounded-full shadow-sm">
+                <i class="fa-solid fa-tag"></i>
+                <span x-text="lang === 'ar' ? currentArticle.category.ar : currentArticle.category.en"></span>
+            </span>
+
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-full shadow-sm">
+                <i class="fa-regular fa-clock text-brand-600"></i>
+                <span x-text="lang === 'ar' ? currentArticle.readTime.ar : currentArticle.readTime.en"></span>
+            </span>
+
+            <span class="text-xs text-slate-500 font-mono" x-text="lang === 'ar' ? currentArticle.date.ar : currentArticle.date.en"></span>
+        </div>
+
+        <!-- Article Title -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight"
+            x-text="lang === 'ar' ? currentArticle.title.ar : currentArticle.title.en">
+        </h1>
+
+        <!-- Subtitle / Excerpt -->
+        <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal border-l-4 border-brand-500 pl-4"
+           :class="lang === 'ar' ? 'border-l-0 border-r-4 pl-0 pr-4' : ''"
+           x-text="lang === 'ar' ? currentArticle.excerpt.ar : currentArticle.excerpt.en">
+        </p>
+
+        <!-- Author Info Bar -->
+        <div class="pt-4 flex items-center justify-center sm:justify-start gap-3 border-t border-slate-200/80 text-xs">
+            <div class="w-10 h-10 rounded-full bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-600 font-bold text-base shadow-sm">
+                <i class="fa-solid fa-user-gear"></i>
+            </div>
+            <div>
+                <span class="font-bold text-slate-900 block" x-text="lang === 'ar' ? 'فريق الهندسة والحلول التقنية (DevHubIT)' : 'DevHubIT Engineering Team'"></span>
+                <span class="text-slate-500" x-text="lang === 'ar' ? 'هندسة البرمجيات والأنظمة السحابية' : 'Software Architecture & Cloud Systems'"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Visual Hero Banner -->
+    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-tr from-brand-50 via-white to-brand-100 border border-brand-200/80 h-64 sm:h-80 flex items-center justify-center text-center p-8 shadow-xl shadow-brand-500/10" data-aos="fade-up">
+        <div class="relative z-10 space-y-4">
+            <div class="w-20 h-20 mx-auto rounded-3xl bg-white border border-brand-200 text-brand-600 flex items-center justify-center text-4xl shadow-md">
+                <i :class="currentArticle.icon"></i>
+            </div>
+            <span class="text-xs font-mono font-extrabold tracking-widest uppercase text-brand-700 block" x-text="currentArticle.codeTitle"></span>
+        </div>
+    </div>
+
+    <!-- Key Takeaways Callout Box -->
+    <section class="bg-white border border-brand-200/80 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl shadow-brand-500/10" data-aos="fade-up">
+        <div class="flex items-center gap-3 text-brand-600">
+            <div class="w-9 h-9 rounded-xl bg-brand-50 border border-brand-200 flex items-center justify-center text-base">
+                <i class="fa-solid fa-lightbulb"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900" x-text="lang === 'ar' ? 'أبرز النقاط والحلول الهندسية في هذا المقال' : 'Key Takeaways & Engineering Insights'"></h3>
+        </div>
+        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+            <template x-for="(point, idx) in currentArticle.takeaways" :key="idx">
+                <li class="flex items-start gap-2.5">
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-base mt-0.5"></i>
+                    <span x-text="lang === 'ar' ? point.ar : point.en"></span>
+                </li>
+            </template>
+        </ul>
+    </section>
+
+    <!-- Main Article Body -->
+    <article class="space-y-10 text-slate-600 text-sm sm:text-base leading-relaxed" data-aos="fade-up">
+        
+        <!-- Section 1 -->
+        <section class="space-y-4">
+            <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center text-sm font-mono font-bold">01</span>
+                <span x-text="lang === 'ar' ? currentArticle.section1.heading.ar : currentArticle.section1.heading.en"></span>
+            </h2>
+            <p x-text="lang === 'ar' ? currentArticle.section1.content.ar : currentArticle.section1.content.en"></p>
+        </section>
+
+        <!-- Section 2: Code Snippet / Technical Spec -->
+        <section class="space-y-4">
+            <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center text-sm font-mono font-bold">02</span>
+                <span x-text="lang === 'ar' ? currentArticle.section2.heading.ar : currentArticle.section2.heading.en"></span>
+            </h2>
+            <p x-text="lang === 'ar' ? currentArticle.section2.content.ar : currentArticle.section2.content.en"></p>
+            
+            <!-- Code Block Component -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 overflow-x-auto shadow-2xl font-mono text-xs text-slate-200">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4 text-[11px] text-slate-400">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-code text-brand-400"></i>
+                        <span x-text="currentArticle.codeLang"></span>
+                    </span>
+                    <span class="text-emerald-400 font-bold" x-text="lang === 'ar' ? 'معمارية محترفة' : 'Production Best Practice'"></span>
+                </div>
+                <pre><code x-text="currentArticle.codeSnippet"></code></pre>
+            </div>
+        </section>
+
+        <!-- Section 3: Strategic Checklist -->
+        <section class="space-y-4">
+            <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center text-sm font-mono font-bold">03</span>
+                <span x-text="lang === 'ar' ? currentArticle.section3.heading.ar : currentArticle.section3.heading.en"></span>
+            </h2>
+            <p x-text="lang === 'ar' ? currentArticle.section3.content.ar : currentArticle.section3.content.en"></p>
+
+            <!-- Checklist Cards Grid -->
+            <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                <template x-for="(item, idx) in currentArticle.section3.bullets" :key="idx">
+                    <div class="bg-white border border-slate-200/80 p-4 rounded-2xl space-y-2 shadow-sm">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-brand-600"></i>
+                            <span x-text="lang === 'ar' ? item.title.ar : item.title.en"></span>
+                        </h4>
+                        <p class="text-xs text-slate-500 leading-relaxed" x-text="lang === 'ar' ? item.desc.ar : item.desc.en"></p>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+    </article>
+
+    <!-- Bottom Consultation CTA Callout Banner -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-brand-600 via-brand-700 to-brand-800 p-8 sm:p-10 text-center space-y-6 shadow-2xl shadow-brand-600/30" data-aos="fade-up">
+        <div class="max-w-2xl mx-auto space-y-4 relative z-10">
+            <span class="inline-block bg-white/20 text-white border border-white/30 px-4 py-1 rounded-full text-xs font-extrabold"
+                  x-text="lang === 'ar' ? '⚡ استشارة فنية مخصصة لنظامك البرمجي' : '⚡ Need Technical Optimization for Your Project?'"></span>
+            
+            <h2 class="text-2xl sm:text-3xl font-black text-white leading-snug"
+                x-text="lang === 'ar' ? 'هل ترغب في بناء نظام سحابي فائق الأداء والسرعة لشركتك؟' : 'Ready to Engineering a High-Performance System for Your Business?'"></h2>
+            
+            <p class="text-brand-100 text-xs sm:text-sm leading-relaxed"
+                x-text="lang === 'ar' ? 'تواصل مباشرة مع مهندسي DevHubIT لمراجعة معمارية قواعد البيانات، وتحسين استعلامات النظام، أو بناء لوحة تحكم مخصصة.' : 'Connect directly with DevHubIT software engineers to review your DB architecture, optimize queries, or build custom dashboards.'"></p>
+            
+            <div class="pt-2 flex flex-wrap justify-center gap-4">
+                <a :href="'https://wa.me/201555646040?text=' + encodeURIComponent(lang === 'ar' ? 'السلام عليكم، قرأت مقال (' + currentArticle.title.ar + ') وأرغب في استشارة تقنية لمشروعي' : 'Hi DevHubIT, I would like to request a technical consultation for (' + currentArticle.title.en + ')')"
+                   target="_blank"
+                   class="bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold px-8 py-3.5 rounded-2xl shadow-xl shadow-emerald-900/30 flex items-center gap-3 transition transform hover:scale-105">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span x-text="lang === 'ar' ? 'استشارة تقنية عبر الواتساب' : 'Request Technical Consultation'"></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Article Navigator -->
+    <section class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-slate-200/50" data-aos="zoom-in">
+        <div class="space-y-1 text-center md:text-start">
+            <span class="text-xs font-extrabold text-brand-600 uppercase tracking-widest"
+                  x-text="lang === 'ar' ? 'المقال التالي في المدونة' : 'Read Next Article'"></span>
+            <h3 class="text-xl font-extrabold text-slate-900"
+                x-text="lang === 'ar' ? nextArticle.title.ar : nextArticle.title.en"></h3>
+            <p class="text-slate-500 text-xs"
+               x-text="lang === 'ar' ? nextArticle.category.ar : nextArticle.category.en"></p>
+        </div>
+
+        <button @click="switchArticle(nextId)" 
+                class="bg-slate-100 hover:bg-brand-600 hover:text-white text-slate-800 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl border border-slate-200 hover:border-brand-500 transition flex items-center gap-2.5 group shrink-0">
+            <span x-text="lang === 'ar' ? 'انتقل للمقال التالي' : 'Read Next Article'"></span>
+            <i class="fa-solid" :class="lang === 'ar' ? 'fa-arrow-left group-hover:-translate-x-1' : 'fa-arrow-right group-hover:translate-x-1' + ' transition-transform'"></i>
+        </button>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="mt-16 bg-slate-950 border-t border-slate-900 py-8 text-center text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-white font-bold text-sm">
+            <div class="w-6 h-6 bg-blue-600/10 text-blue-600 rounded-md flex items-center justify-center text-xs border border-blue-500/20">
+                <i class="fa-solid fa-circle-nodes text-blue-600"></i>
+            </div>
+            <span>Dev<span class="text-blue-600 font-black">Hub</span><span class="bg-emerald-500/10 text-emerald-600 text-[10px] px-1 py-0.5 rounded font-black border border-emerald-500/20 ml-0.5">IT</span></span>
+        </div>
+        <p>©2026 DevHubIT Software & IT Solutions. All rights reserved.</p>
+        <a href="index.html#blog" class="text-slate-400 hover:text-brand-400 transition" x-text="lang === 'ar' ? 'العودة للمدونة' : 'All Blog Articles'"></a>
+    </div>
+</footer>
+
+<!-- AOS JS Script -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Alpine.js Blog Application Logic -->
+<script>
+    function blogApp() {
+        return {
+            lang: 'en',
+            activeId: 'db-architecture-performance',
+            
+            articleList: ['db-architecture-performance', 'custom-admin-dashboards', 'mvp-vs-enterprise-systems'],
+
+            articles: {
+                'db-architecture-performance': {
+                    id: 'db-architecture-performance',
+                    icon: 'fa-solid fa-database',
+                    codeTitle: 'DATA ENGINE & EXECUTION PIPELINE ARCHITECTURE',
+                    codeLang: 'Data Query Execution & Indexing Architecture',
+                    category: {
+                        ar: 'معمارية قواعد البيانات والـ Backend',
+                        en: 'Software Architecture & Backend'
+                    },
+                    readTime: {
+                        ar: '5 دقائق قراءة',
+                        en: '5 min read'
+                    },
+                    date: {
+                        ar: '12 أغسطس 2026',
+                        en: 'Aug 12, 2026'
+                    },
+                    title: {
+                        ar: 'لماذا تعتبر سرعة الأداء وهيكلة قواعد البيانات هي الأساس لنجاح مشروعك البرمجي؟',
+                        en: 'Why Database Architecture & Performance Optimization Matter for Web Applications'
+                    },
+                    excerpt: {
+                        ar: 'تحليل هندسي يوضح كيف تؤدي استعلامات البيانات غير الفعالة وغياب الفهارس (Indexes) إلى بطء التطبيق وسقوط الخوادم تحت الضغط العالي، وكيف تعالج DevHubIT هذه التحديات.',
+                        en: 'An engineering deep dive on how unindexed data queries cause application lag and server failure, and how DevHubIT optimizes data engine efficiency.'
+                    },
+                    takeaways: [
+                        {
+                            ar: 'الفهارس المركبة (Composite Indexes) تخفض زمن استجابة استعلامات البيانات من ثوانٍ إلى ميكروثانية.',
+                            en: 'Composite indexes reduce query execution latency from seconds down to milliseconds.'
+                        },
+                        {
+                            ar: 'تطبيق مبادئ التحميل المسبق (Eager Data Loading) يمنع إرهاق السيرفر وتكرار الاستعلامات.',
+                            en: 'Eager loading relationships prevents connection pool exhaustion and redundant data queries.'
+                        },
+                        {
+                            ar: 'التخزين المؤقت المستهدف (High-Speed Caching) يقلل الحمل على قاعدة البيانات بنسبة تصل إلى 80%.',
+                            en: 'Targeted memory caching layer reduces primary DB read load by up to 80%.'
+                        }
+                    ],
+                    section1: {
+                        heading: {
+                            ar: 'مشكلة البطء وعنق الزجاجة في قواعد البيانات الضخمة',
+                            en: 'The Silent Bottleneck: Why Slow Data Engines Kill Web Applications'
+                        },
+                        content: {
+                            ar: 'عند إطلاق أي نظام ويب أو تطبيق سحابي، قد تظن أن التصميم الجذاب هو العامل الوحيد للنجاح. لكن مع نمو عدد المشتركين وزيادة حجم البيانات في الجداول إلى مئات الآلاف، تبدأ الكارثة: استعلامات بطيئة تستغرق عدة ثوانٍ، وتصل استهلاكات الـ CPU على السيرفر إلى 100%، مما يؤدي إلى سقوط النظام بالكامل في أوقات الذروة.',
+                            en: 'When building a web platform, visual aesthetics are only half the battle. As your user base grows and database tables swell to hundreds of thousands of records, poor query architecture rears its head: multi-second page response times, 100% CPU spikes, and server crashes during peak traffic spikes.'
+                        }
+                    },
+                    section2: {
+                        heading: {
+                            ar: 'الهندسة العكسية وتحسين استعلامات البيانات',
+                            en: 'Query Optimization & Smart Indexing Architecture'
+                        },
+                        content: {
+                            ar: 'في DevHubIT، نتبع نهجاً صارماً يقوم على تحليل خطة تنفيذ استعلامات البيانات (Execution Plan). نقوم بإنشاء فهارس (Indexes) محددة للجداول على الأعمدة التي يتم تصفيتها أو الفرز بها، مع تجنب الفهارس العشوائية التي تستهلك الذاكرة. انظر إلى النموذج الهندسي التالي:',
+                            en: 'At DevHubIT, we analyze execution plans to diagnose query performance bottlenecks. By building targeted composite indexes on filtered and sorted attributes, we turn heavy table scans into microsecond B-Tree index lookups:'
+                        }
+                    },
+                    codeSnippet: `/* DEVHUBIT HIGH-PERFORMANCE DATA PIPELINE */
+
+[ Unoptimized Query Execution ]
+Scanning 500,000 unindexed records -> Execution Time: 3.85 seconds (Server Lag)
+
+[ DevHubIT Index & Memory Optimization Layer ]
+- Composite Data Indexing: Built on (account_id, status, created_at DESC)
+- Selective Attribute Fetching: Retaining only active business fields
+- In-Memory Query Caching: Storing frequent reports in high-speed cache
+
+[ Optimized Query Execution ]
+Index Seek across 20 targeted records -> Execution Time: 2.1 milliseconds (Sub-300ms Page Load)`,
+
+                    section3: {
+                        heading: {
+                            ar: '3 معايير نطبقها في DevHubIT لضمان السرعة الاستثنائية',
+                            en: '3 Core Performance Standards Applied at DevHubIT'
+                        },
+                        content: {
+                            ar: 'لضمان فتح صفحات التطبيق في أقل من 300 ملي ثانية، نعتمد على قواعد هندسية أساسية في بناء وتطوير الخلفية البرمجية:',
+                            en: 'To guarantee sub-300ms page loads across all applications, DevHubIT enforces strict backend query standards:'
+                        },
+                        bullets: [
+                            {
+                                title: { ar: 'تحميل العلاقات المسبق (Eager Data Loading)', en: 'Strict Eager Data Loading' },
+                                desc: { ar: 'تجميع استدعاءات البيانات المترابطة في مرحلة واحدة لتفادي تكرار الاستعلامات.', en: 'Fetching linked data entities in a single memory pass to eliminate execution delays.' }
+                            },
+                            {
+                                title: { ar: 'تحديد الحقول المطلوبة (Selective Attributes)', en: 'Selective Attribute Fetches' },
+                                desc: { ar: 'استدعاء الحقول اللازمة فقط لتخفيض استهلاك الذاكرة وحفظ كفاءة السيرفر.', en: 'Fetching only essential attributes to minimize RAM footprint and network payload.' }
+                            },
+                            {
+                                title: { ar: 'التخزين المؤقت السريع (In-Memory Caching)', en: 'High-Speed Memory Caching' },
+                                desc: { ar: 'تخزين نتائج الاستعلامات المتكررة والتقارير في ذاكرة سريعة فائقة الأداء.', en: 'Caching frequent read operations and dashboard counters in high-speed memory.' }
+                            },
+                            {
+                                title: { ar: 'تقسيم الجداول والبيانات (Data Partitioning)', en: 'Database Partitioning' },
+                                desc: { ar: 'فصل سجلات البيانات التاريخية الكبيرة لضمان بقاء الجداول النشطة سريعة جداً.', en: 'Partitioning historical logs to keep active transaction tables lightweight.' }
+                            }
+                        ]
+                    }
+                },
+
+                'custom-admin-dashboards': {
+                    id: 'custom-admin-dashboards',
+                    icon: 'fa-solid fa-gauge-high',
+                    codeTitle: 'REACTIVE ADMIN DASHBOARD ARCHITECTURE',
+                    codeLang: 'Reactive Dashboard Component Architecture',
+                    category: {
+                        ar: 'أنظمة الإدارة والأتمتة',
+                        en: 'Management Systems & Automation'
+                    },
+                    readTime: {
+                        ar: '6 دقائق قراءة',
+                        en: '6 min read'
+                    },
+                    date: {
+                        ar: '10 أغسطس 2026',
+                        en: 'Aug 10, 2026'
+                    },
+                    title: {
+                        ar: 'كيف تساعدك لوحة التحكم المخصصة (Custom Dashboard) على أتمتة وتسهيل إدارة أعمالك؟',
+                        en: 'How Custom Admin Dashboards Streamline and Automate Business Operations'
+                    },
+                    excerpt: {
+                        ar: 'مقارنة شاملة توضح لماذا تفشل القوالب الجاهزة الممتلئة بالأكواد الزائدة، وكيف تمنحك لوحات التحكم المخصصة رؤية فورية لأرقام شركتك وتزيد الإنتاجية.',
+                        en: 'Discover why bloated off-the-shelf admin templates slow down operations, and how custom real-time dashboards empower fast decision-making and business automation.'
+                    },
+                    takeaways: [
+                        {
+                            ar: 'اللوحات المخصصة المصممة خصيصاً لدورة عملك تخفض زمن إدخال البيانات بنسبة 60%.',
+                            en: 'Tailored workflow dashboards reduce operational data entry times by 60%.'
+                        },
+                        {
+                            ar: 'الربط التفاعلي الفوري (Real-time Reactive UI) يلغي الحاجة إلى تحديث الصفحة المزعج.',
+                            en: 'Real-time reactive UI state updates eliminate tedious full-page browser refreshes.'
+                        },
+                        {
+                            ar: 'نظام الصلاحيات المحكم (RBAC) يحمي بياناتك المالية الحساسة ويحدد صلاحية كل موظف.',
+                            en: 'Granular Role-Based Access Control (RBAC) secures sensitive business financial metrics.'
+                        }
+                    ],
+                    section1: {
+                        heading: {
+                            ar: 'فخ القوالب الجاهزة (Theme Templates) مقابل النظام المخصص',
+                            en: 'The Generic Template Trap vs. Tailored Dashboard Systems'
+                        },
+                        content: {
+                            ar: 'يلجأ العديد من أصحاب المشاريع إلى شراء قوالب إدارية جاهزة رخيصة تكتظ بعشرات المكتبات غير المستخدمة ورسائل الخلل الكثيرة. النتيجة: لوحة تحكم ثقيلة، تصفح بطيء، وصعوبة التعديل عليها لإضافة وظيفة خاصة بعملك. في DevHubIT، نبني لوحات التحكم من الصفر لتناسب دورتك التشغيلية بدقة.',
+                            en: 'Many business owners buy generic $20 admin templates loaded with dozens of bloated JS libraries and unused components. The result: slow load times, fragile UI, and extreme friction when adding custom business workflows. At DevHubIT, we architect lightweight, bespoke management hubs around your specific processes.'
+                        }
+                    },
+                    section2: {
+                        heading: {
+                            ar: 'التفاعل الفوري وسلاسة تجربة المستخدم',
+                            en: 'Reactive Real-Time Interactivity Engine'
+                        },
+                        content: {
+                            ar: 'نعتمد على معمارية تفاعلية حديثة لبناء مكونات لوحة التحكم: تغيير الحالة، تصفية الجدول، وتوليد الفواتير يحدث فوراً بدون إعادة تحميل الصفحة (Zero Page Reload):',
+                            en: 'We architect reactive dashboard modules where metrics, table searches, and order status updates occur instantaneously without jarring full-page refreshes:'
+                        }
+                    },
+                    codeSnippet: `/* DEVHUBIT REACTIVE DASHBOARD ENGINE */
+
+DashboardComponent ({
+    State: {
+        activeFilter: 'today',
+        totalRevenue: '$14,250',
+        liveStatus: 'Active'
+    },
+    
+    Actions: {
+        filterRevenue(period) {
+            // Instant reactive data fetch without full-page reload
+            this.activeFilter = period;
+            this.totalRevenue = FetchPeriodMetrics(period);
+        }
+    }
+})`,
+
+                    section3: {
+                        heading: {
+                            ar: 'أبرز مميزات لوحات التحكم التي نطورها في DevHubIT',
+                            en: 'Core Features of DevHubIT Custom Admin Platforms'
+                        },
+                        content: {
+                            ar: 'تتضمن لوحات التحكم التي نطورها حلولاً متكاملة ترفع كفاءة فريق عملك وتحمي بياناتك:',
+                            en: 'Every dashboard delivered by DevHubIT comes equipped with production-ready operational tools:'
+                        },
+                        bullets: [
+                            {
+                                title: { ar: 'رسوم بيانية تفاعلية (Dynamic Analytics)', en: 'Interactive Data Analytics' },
+                                desc: { ar: 'رسوم بيانية لمتابعة الأداء والمبيعات لحظة بلحظة مع إمكانية التصدير.', en: 'Real-time interactive analytics for instant sales & growth visual inspection.' }
+                            },
+                            {
+                                title: { ar: 'إدارة الصلاحيات (Role-Based Access)', en: 'Granular Role Permissions' },
+                                desc: { ar: 'تحديد صلاحيات المشرف، المحاسب، والموظف بدقة لحماية البيانات الحساسة.', en: 'Enforcing role-based access for admins, accountants, and staff members.' }
+                            },
+                            {
+                                title: { ar: 'أتمتة الفواتير والتقارير (PDF & Excel Export)', en: 'Automated Report Generation' },
+                                desc: { ar: 'توليد تقارير كشف الحساب والفواتير وتنزيلها بنقرة واحدة.', en: 'One-click automated generation and download of PDF invoices and Excel balance sheets.' }
+                            },
+                            {
+                                title: { ar: 'إشعارات فورية (Real-time Notifications)', en: 'Instant Alert Engine' },
+                                desc: { ar: 'تنبيهات فورية عند وصول طلب جديد أو تجديد اشتراك لعدم تفويت أي عميل.', en: 'Real-time web & WhatsApp alerts when new orders or subscription renewals occur.' }
+                            }
+                        ]
+                    }
+                },
+
+                'mvp-vs-enterprise-systems': {
+                    id: 'mvp-vs-enterprise-systems',
+                    icon: 'fa-solid fa-rocket',
+                    codeTitle: 'MVP TO ENTERPRISE SCALING FRAMEWORK',
+                    codeLang: 'Architecture & Scalability Roadmap',
+                    category: {
+                        ar: 'استراتيجية وتوسع المشاريع',
+                        en: 'Startup & Tech Strategy'
+                    },
+                    readTime: {
+                        ar: '4 دقائق قراءة',
+                        en: '4 min read'
+                    },
+                    date: {
+                        ar: '05 أغسطس 2026',
+                        en: 'Aug 05, 2026'
+                    },
+                    title: {
+                        ar: 'من الـ MVP إلى النظام المتكامل: كيف تبدأ مشروعك البرمجي بتكلفة ذكية وتتوسع بسرعة؟',
+                        en: 'MVP vs. Scalable Enterprise Systems: How to Launch Fast and Scale Smart'
+                    },
+                    excerpt: {
+                        ar: 'دليل عملي للشركات الناشئة والمؤسسات لاختبار أفكارها البرمجية بسرعة بأقل استثمار مالي، مع بناء بنية تحتية تقبل التوسع دون إعادة كتابة الكود.',
+                        en: 'A strategic blueprint for startup founders and business owners on launching a Minimal Viable Product (MVP) rapidly without accumulating technical debt.'
+                    },
+                    takeaways: [
+                        {
+                            ar: 'الـ MVP الذكي يركز على المشكلة الأساسية فقط ويقلل وقت التطوير بنسبة 50%.',
+                            en: 'A smart MVP solves one core problem cleanly, reducing launch timeline by 50%.'
+                        },
+                        {
+                            ar: 'بناء قواعد البيانات بهيكلة نظيفة (Modular Schema) يمنع إعادة كتابة النظام عند التوسع.',
+                            en: 'Modular database architecture eliminates expensive rewrites during future scale.'
+                        },
+                        {
+                            ar: 'إطلاق النسخة الأولى بسرعة يتيح لك جمع ملاحظات العملاء الحقيقيين وتجنب الهدر المالي.',
+                            en: 'Launching fast allows real market feedback loop, avoiding wasted development capital.'
+                        }
+                    ],
+                    section1: {
+                        heading: {
+                            ar: 'ما هو الـ MVP ولماذا تحتاجه قبل بناء نظام ضخم؟',
+                            en: 'What is an MVP and Why You Need It First'
+                        },
+                        content: {
+                            ar: 'الكثير من أصحاب الأفكار البرمجية ينفقون ميزانيات ضخمة في تطوير عشرات الميزات الثانوية قبل التأكد من إقبال العملاء على المنتج! الـ Minimum Viable Product (MVP) هو النسخة الأساسية والأكثر فاعلية من نظامك، والتي تتيح لك دخول السوق بسرعة، واختبار الفكرة، وتحقيق المبيعات الأولى، ثم التوسع بناءً على طلبات المستعملين الحقيقيين.',
+                            en: 'A common mistake startup founders make is spending massive capital building complex secondary features before validating market demand. A Minimum Viable Product (MVP) is the streamlined, core-feature version of your system that launches fast, collects real user feedback, and generates initial revenue with minimal risk.'
+                        }
+                    },
+                    section2: {
+                        heading: {
+                            ar: 'جدول مقارنة: الـ MVP مقابل نظام المؤسسات المتكامل',
+                            en: 'Comparison Matrix: MVP Launch vs. Enterprise System'
+                        },
+                        content: {
+                            ar: 'المقارنة التالية توضح الفروق الجوهرية وكيف نخطط في DevHubIT للانتقال السلس بين المرحلتين دون إهدار كود النسخة الأولى:',
+                            en: 'The comparison matrix below highlights the differences and how DevHubIT structures software so your MVP code seamlessly evolves into an enterprise platform:'
+                        }
+                    },
+                    codeSnippet: `/* DEVHUBIT SCALABILITY MATRIX */
+
+Phase 1: MVP Launch (Weeks 1-4)
+---------------------------------------------------
+- Core Workflow: 1 Critical Problem Solved Cleanly
+- UI Framework: Modern Responsive Interactive Interface
+- Database: Scalable Normalized Data Schema
+- Auth: Multi-Role Authorization & Security
+- Investment: Lean & Fast Time-to-Market
+
+Phase 2: Enterprise Scaling (Months 6-12)
+---------------------------------------------------
+- Advanced Modules: Automation, Automated Reports, Integrations
+- Microservices & In-Memory Caching Layers
+- Advanced Analytics & Automated Audit Logging
+- Enterprise API Gateway for Mobile Apps & Third-Party Vendors`,
+
+                    section3: {
+                        heading: {
+                            ar: 'كيف تضمن DevHubIT توسع نظامك بدون ديون تقنية (Technical Debt)؟',
+                            en: 'How DevHubIT Prevents Technical Debt During Expansion'
+                        },
+                        content: {
+                            ar: 'عندما تطور الـ MVP مع DevHubIT، فإننا لا نستخدم حلولاً مؤقتة أو كوداً عشوائياً. بل نطبق أفضل المعايير المعمارية (SOLID Principles & Clean Modular Architecture) التي تضمن لك إمكانية إضافة أي ميزة مستقبلية بسهولة وبدون إعادة بناء البنية التحتية.',
+                            en: 'When DevHubIT engineers your MVP, we never cut corners on code architecture. By employing strict SOLID principles and clean modular architecture, your codebase is ready to scale gracefully as your user volume grows.'
+                        },
+                        bullets: [
+                            {
+                                title: { ar: 'قواعد بيانات مهيكلة للتوسع (Normalized Data)', en: 'Normalized Data Architecture' },
+                                desc: { ar: 'جداول مصممة لربط العلاقات والموديولات الجديدة بسهولة مستقبلاً.', en: 'Schema tables organized to support seamless addition of new modules.' }
+                            },
+                            {
+                                title: { ar: 'واجهات برمجية آمنة (Secure System APIs)', en: 'Secure System APIs' },
+                                desc: { ar: 'إمكانية ربط تطبيق موبايل مستقبلاً بنفس الـ Backend الحالي.', en: 'Decoupled API endpoints allowing future mobile app integrations with the same backend.' }
+                            },
+                            {
+                                title: { ar: 'أمان وتوثيق مرن (Secure Authentication)', en: 'Scalable Auth Engine' },
+                                desc: { ar: 'نظام حماية مرن يتقبل فئات جديدة من المستخدمين والشركاء.', en: 'Flexible authentication provider handling multiple user role extensions.' }
+                            },
+                            {
+                                title: { ar: 'استضافة سحابية قابلة للزيادة (Auto-scalable Cloud)', en: 'Cloud Scalability' },
+                                desc: { ar: 'إعداد الخوادم لتتحمل زيادة حركة الزوار التلقائية بنقرة واحدة.', en: 'Configuring servers for vertical and horizontal scaling with zero downtime.' }
+                            }
+                        ]
+                    }
+                }
+            },
+
+            get currentArticle() {
+                return this.articles[this.activeId] || this.articles['db-architecture-performance'];
+            },
+
+            get nextId() {
+                const currentIndex = this.articleList.indexOf(this.activeId);
+                const nextIndex = (currentIndex + 1) % this.articleList.length;
+                return this.articleList[nextIndex];
+            },
+
+            get nextArticle() {
+                return this.articles[this.nextId];
+            },
+
+            init() {
+                const params = new URLSearchParams(window.location.search);
+                const articleId = params.get('id');
+                if (articleId && this.articles[articleId]) {
+                    this.activeId = articleId;
+                } else {
+                    this.activeId = 'db-architecture-performance';
+                }
+
+                this.$nextTick(() => {
+                    if (typeof AOS !== 'undefined') {
+                        AOS.init({
+                            duration: 800,
+                            once: true,
+                            easing: 'ease-out-cubic'
+                        });
+                    }
+                });
+            },
+
+            switchArticle(id) {
+                if (this.articles[id]) {
+                    this.activeId = id;
+                    window.history.pushState({}, '', '?id=' + id);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    this.$nextTick(() => {
+                        if (typeof AOS !== 'undefined') {
+                            AOS.refresh();
+                        }
+                    });
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

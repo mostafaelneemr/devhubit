@@ -1,0 +1,10 @@
+# DevHubIT Robots.txt
+# Allows full indexing for all search engine bots
+
+User-agent: *
+Allow: /
+Disallow: /scratch/
+Disallow: /.idea/
+
+# Sitemap Location
+Sitemap: https://devhubit.com/sitemap.xml

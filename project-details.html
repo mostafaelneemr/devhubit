@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" x-data="projectApp()" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO Title & Meta Description -->
+    <title x-text="lang === 'ar' ? currentProject.title.ar + ' | دراسة حالة DevHubIT' : currentProject.title.en + ' | DevHubIT Case Study'"></title>
+    <meta name="description" content="Explore DevHubIT's engineering case studies: custom enterprise ERP systems, real-time IoT analytics dashboards, high-speed corporate portals, and e-commerce platforms.">
+    <meta name="keywords" content="DevHubIT Case Studies, Custom ERP Case Study, IoT Analytics Dashboard, Enterprise Software Engineering">
+    <meta name="author" content="DevHubIT Engineering Team">
+    
+    <!-- Canonical & Robots Metadata -->
+    <link rel="canonical" href="https://devhubit.com/project-details.html" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- Hreflang Annotations -->
+    <link rel="alternate" hreflang="en" href="https://devhubit.com/project-details.html" />
+    <link rel="alternate" hreflang="ar" href="https://devhubit.com/project-details.html?lang=ar" />
+    <link rel="alternate" hreflang="x-default" href="https://devhubit.com/project-details.html" />
+    
+    <!-- Open Graph (OG) Social Metadata -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://devhubit.com/project-details.html">
+    <meta property="og:title" content="DevHubIT Case Studies | Enterprise Software & Cloud Solutions">
+    <meta property="og:description" content="Explore DevHubIT's engineering case studies: custom enterprise ERP systems, real-time IoT analytics dashboards, high-speed corporate portals, and e-commerce platforms.">
+    <meta property="og:image" content="https://devhubit.com/img/og-preview.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ar_AR">
+    <meta property="og:site_name" content="DevHubIT">
+    
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://devhubit.com/project-details.html">
+    <meta name="twitter:title" content="DevHubIT Case Studies | Enterprise Software & Cloud Solutions">
+    <meta name="twitter:description" content="Explore DevHubIT's engineering case studies: custom enterprise ERP systems, real-time IoT analytics dashboards, high-speed corporate portals, and e-commerce platforms.">
+    <meta name="twitter:image" content="https://devhubit.com/img/og-preview.png">
+
+    <!-- JSON-LD Structured Data (Case Study / SoftwareApplication Schema) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "DevHubIT Software Solutions",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, Cloud, iOS, Android",
+      "author": {
+        "@type": "Organization",
+        "name": "DevHubIT",
+        "url": "https://devhubit.com/"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "38"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            400: '#38bdf8',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Font (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        body { font-family: 'Cairo', sans-serif; overflow-x: hidden; }
+        .glow-cyan {
+            box-shadow: 0 0 50px -10px rgba(56, 189, 248, 0.25);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.25);
+        }
+        .browser-scroll {
+            max-height: 520px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(56, 189, 248, 0.4) rgba(15, 23, 42, 0.8);
+        }
+        .browser-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .browser-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.8);
+        }
+        .browser-scroll::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.4);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col justify-between">
+
+<!-- Ambient Background Glows -->
+<div class="fixed -top-40 -left-40 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+<div class="fixed top-1/2 -right-40 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+
+<!-- Top Sticky Header -->
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/80 transition-all duration-300 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+        
+        <!-- Logo & Back Link -->
+        <div class="flex items-center gap-4 sm:gap-6">
+            <a href="index.html" class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5 hover:scale-105 transition transform">
+                <div class="w-10 h-10 bg-blue-600/10 text-blue-600 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-sm border border-blue-500/20">
+                    <i class="fa-solid fa-circle-nodes text-blue-600"></i>
+                </div>
+                <span class="font-extrabold text-slate-900">Dev<span class="text-blue-600 font-black">Hub</span><span class="bg-emerald-500/10 text-emerald-600 text-xs px-1.5 py-0.5 rounded-md font-black border border-emerald-500/20 ml-1">IT</span></span>
+            </a>
+
+            <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+
+            <a href="index.html#portfolio" class="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-brand-600 transition bg-slate-100/80 border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm">
+                <i class="fa-solid" :class="lang === 'ar' ? 'fa-arrow-right' : 'fa-arrow-left'"></i>
+                <span x-text="lang === 'ar' ? 'العودة للمشاريع' : 'Back to Projects'"></span>
+            </a>
+        </div>
+
+        <!-- Navigation Actions & Language Switcher -->
+        <div class="flex items-center gap-3 sm:gap-4">
+            
+            <!-- Mobile Back Button -->
+            <a href="index.html#portfolio" class="sm:hidden text-xs font-bold text-slate-600 hover:text-brand-600 transition bg-slate-100 border border-slate-200 p-2 rounded-lg">
+                <i class="fa-solid" :class="lang === 'ar' ? 'fa-arrow-right' : 'fa-arrow-left'"></i>
+            </a>
+
+            <!-- Language Switcher Button -->
+            <button @click="lang = (lang === 'ar' ? 'en' : 'ar')" 
+                    class="flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-700 hover:border-brand-500 hover:text-brand-600 transition shadow-sm">
+                <i class="fa-solid fa-globe text-brand-600 text-sm"></i>
+                <span x-text="lang === 'ar' ? 'English' : 'عربي'"></span>
+            </button>
+
+            <!-- WhatsApp CTA Button -->
+            <a :href="'https://wa.me/201555646040?text=' + encodeURIComponent(lang === 'ar' ? 'السلام عليكم، حابب أستفسر عن دراسة حالة نظام (' + currentProject.title.ar + ')' : 'Hello DevHubIT, I am interested in a system similar to (' + currentProject.title.en + ')')" 
+               target="_blank" 
+               class="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/25 flex items-center gap-2 transition transform hover:-translate-y-0.5">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span class="hidden md:inline" x-text="lang === 'ar' ? 'تواصل عبر الواتساب' : 'Contact via WhatsApp'"></span>
+                <span class="md:hidden" x-text="lang === 'ar' ? 'واتساب' : 'WhatsApp'"></span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Main Case Study Content Container -->
+<main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-16 space-y-16 lg:space-y-24">
+
+    <!-- 1. Hero Section -->
+    <section class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- Hero Details Column -->
+        <div class="lg:col-span-7 space-y-6" data-aos="fade-right">
+            
+            <!-- Category & Status Badge -->
+            <div class="flex flex-wrap items-center gap-3">
+                <span class="inline-flex items-center gap-2 text-xs font-extrabold text-brand-700 bg-brand-50 border border-brand-200 px-3.5 py-1.5 rounded-full shadow-sm">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span x-text="lang === 'ar' ? currentProject.category.ar : currentProject.category.en"></span>
+                </span>
+                
+                <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block"></span>
+                    <span x-text="lang === 'ar' ? 'نظام حي ويعمل بكفاءة' : 'Production Verified'"></span>
+                </span>
+            </div>
+
+            <!-- Title & Tagline -->
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight"
+                x-text="lang === 'ar' ? currentProject.title.ar : currentProject.title.en">
+            </h1>
+
+            <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal border-l-4 border-brand-500 pl-4"
+               :class="lang === 'ar' ? 'border-l-0 border-r-4 pl-0 pr-4' : ''"
+               x-text="lang === 'ar' ? currentProject.tagline.ar : currentProject.tagline.en">
+            </p>
+
+            <!-- Meta Badges (Industry, Type, Tech Stack) -->
+            <div class="space-y-4 pt-2">
+                <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs sm:text-sm text-slate-600">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-building text-brand-600"></i>
+                        <span class="font-bold text-slate-900" x-text="lang === 'ar' ? 'القطاع:' : 'Industry:'"></span>
+                        <span x-text="lang === 'ar' ? currentProject.industry.ar : currentProject.industry.en"></span>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-laptop-code text-brand-600"></i>
+                        <span class="font-bold text-slate-900" x-text="lang === 'ar' ? 'نوع النظام:' : 'System Type:'"></span>
+                        <span x-text="lang === 'ar' ? currentProject.type.ar : currentProject.type.en"></span>
+                    </div>
+                </div>
+
+                <!-- Tech Stack Tags -->
+                <div class="flex flex-wrap items-center gap-2 pt-2">
+                    <span class="text-xs font-bold text-slate-500 me-2" x-text="lang === 'ar' ? 'معمارية النظام:' : 'Capabilities:'"></span>
+                    <template x-for="tech in currentProject.techStack" :key="tech">
+                        <span class="bg-white border border-slate-200 text-slate-700 font-mono text-xs px-3 py-1 rounded-lg shadow-sm" x-text="tech"></span>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Primary Action Buttons -->
+            <div class="flex flex-wrap gap-4 pt-4">
+                <!-- Request Similar System CTA -->
+                <a :href="'https://wa.me/201555646040?text=' + encodeURIComponent(lang === 'ar' ? 'السلام عليكم، أود طلب تطوير نظام مماثل لمشروع (' + currentProject.title.ar + ')' : 'Hi DevHubIT, I would like to request a similar system to (' + currentProject.title.en + ')')"
+                   target="_blank"
+                   class="bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm sm:text-base px-7 py-3.5 rounded-xl shadow-lg shadow-brand-500/25 flex items-center gap-2.5 transition transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-rocket text-yellow-300"></i>
+                    <span x-text="lang === 'ar' ? 'طلب نظام مماثل' : 'Request Similar System'"></span>
+                </a>
+
+                <!-- Live Preview Button -->
+                <a :href="currentProject.liveUrl" 
+                   target="_blank"
+                   x-show="currentProject.liveUrl"
+                   class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-sm sm:text-base px-6 py-3.5 rounded-xl transition shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-up-right-from-square text-emerald-600"></i>
+                    <span x-text="lang === 'ar' ? 'زيارة الموقع' : 'Live Preview'"></span>
+                </a>
+
+                <!-- Preview Screenshots Button -->
+                <button @click="openLightbox(currentProject.heroImage)"
+                        class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-sm sm:text-base px-5 py-3.5 rounded-xl transition shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-eye text-brand-600"></i>
+                    <span x-text="lang === 'ar' ? 'معاينة الشاشات' : 'Preview Screenshots'"></span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Hero Laptop/Browser Mockup Showcase Column -->
+        <div class="lg:col-span-5" data-aos="fade-left">
+            <div class="relative rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-2xl shadow-slate-200/80">
+                <!-- Browser Header Controls -->
+                <div class="bg-slate-100 border-b border-slate-200 px-4 py-3 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-400 inline-block"></span>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-md px-3 py-1 text-[11px] font-mono text-slate-600 flex items-center gap-1.5 truncate max-w-[220px] shadow-inner">
+                        <i class="fa-solid fa-lock text-emerald-600 text-[9px]"></i>
+                        <span x-text="currentProject.urlDisplay"></span>
+                    </div>
+                    <div class="text-xs text-slate-400">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </div>
+                </div>
+
+                <!-- Scrollable Full-Page Capture Frame -->
+                <div class="browser-scroll cursor-pointer group relative" @click="openLightbox(currentProject.heroImage)">
+                    <img :src="currentProject.heroImage" 
+                          :alt="currentProject.title.en"
+                          class="w-full object-top transition duration-500 group-hover:opacity-90">
+                    
+                    <div class="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-brand-600 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-lg backdrop-blur-md flex items-center gap-2">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            <span x-text="lang === 'ar' ? 'انقر لتكبير الصورة الكاملة' : 'Click to View Fullsize'"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 2. Interactive Screenshot Gallery Section -->
+    <section class="space-y-8" data-aos="fade-up">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/80 pb-6">
+            <div>
+                <span class="text-brand-700 font-extrabold text-xs uppercase tracking-widest bg-brand-50 border border-brand-200 px-3 py-1 rounded-md"
+                      x-text="lang === 'ar' ? 'معرض الواجهات الشامل' : 'System UI Showcase'"></span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3"
+                    x-text="lang === 'ar' ? 'شاشات ولوحات تحكم النظام' : 'Dashboard & Subsystem Captures'"></h2>
+            </div>
+            <p class="text-slate-600 text-xs sm:text-sm max-w-md"
+               x-text="lang === 'ar' ? 'اضغط على أي صورة لفتحها وحجمها الكامل واستعراض التفاصيل البرمجية.' : 'Click on any dashboard screen to open high-resolution lightbox view.'"></p>
+        </div>
+
+        <!-- Screenshots Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="(screen, index) in currentProject.gallery" :key="index">
+                <div @click="openLightbox(screen.img)" 
+                     class="group relative bg-white border border-slate-200/80 rounded-2xl overflow-hidden cursor-pointer hover:border-brand-500/60 transition-all duration-300 hover:-translate-y-1.5 shadow-md hover:shadow-xl">
+                    
+                    <div class="h-48 sm:h-56 bg-slate-100 overflow-hidden relative">
+                        <img :src="screen.img" 
+                             :alt="screen.title.en" 
+                             class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105">
+                        
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition"></div>
+                        
+                        <div class="absolute top-3 right-3 bg-white/90 border border-slate-200 text-brand-600 text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
+                            <span x-text="'0' + (index + 1)"></span>
+                        </div>
+                    </div>
+
+                    <div class="p-5 border-t border-slate-100 bg-white">
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base group-hover:text-brand-600 transition"
+                            x-text="lang === 'ar' ? screen.title.ar : screen.title.en"></h4>
+                        <p class="text-slate-500 text-xs mt-1"
+                           x-text="lang === 'ar' ? screen.desc.ar : screen.desc.en"></p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- 3. System Case Study Details (Challenge, Solution, Features) -->
+    <section class="grid lg:grid-cols-3 gap-8">
+        
+        <!-- Card 1: The Challenge (التحدي البرمجي) -->
+        <div class="bg-white border border-red-200/80 rounded-3xl p-7 lg:p-8 space-y-5 relative overflow-hidden group hover:border-red-400 transition-all duration-300 shadow-lg shadow-slate-200/50" data-aos="fade-up" data-aos-delay="100">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 text-red-600 flex items-center justify-center text-xl font-bold">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            
+            <span class="block text-xs font-extrabold uppercase tracking-widest text-red-600"
+                  x-text="lang === 'ar' ? 'التحدي البرمجي قبل النظام' : 'The Engineering Challenge'"></span>
+
+            <h3 class="text-xl font-extrabold text-slate-900"
+                x-text="lang === 'ar' ? 'مشاكل وسيناريو العمل السابق' : 'Problem Statement & Friction'"></h3>
+
+            <p class="text-slate-600 text-sm leading-relaxed"
+               x-text="lang === 'ar' ? currentProject.challenge.ar : currentProject.challenge.en"></p>
+
+            <div class="pt-2 border-t border-slate-100 flex items-center gap-2 text-xs text-red-600 font-semibold">
+                <i class="fa-solid fa-circle-xmark"></i>
+                <span x-text="lang === 'ar' ? 'بطء التشغيل وفقدان البيانات والتقارير' : 'Manual bottleneck & data lag'"></span>
+            </div>
+        </div>
+
+        <!-- Card 2: Our Engineering Solution (الحل البرمجي من DevHubIT) -->
+        <div class="bg-white border border-brand-200 rounded-3xl p-7 lg:p-8 space-y-5 relative overflow-hidden group hover:border-brand-400 transition-all duration-300 shadow-lg shadow-brand-500/10" data-aos="fade-up" data-aos-delay="200">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center text-xl font-bold">
+                <i class="fa-solid fa-microchip"></i>
+            </div>
+
+            <span class="block text-xs font-extrabold uppercase tracking-widest text-brand-600"
+                  x-text="lang === 'ar' ? 'الحل البرمجي من DevHubIT' : 'DevHubIT Engineering Solution'"></span>
+
+            <h3 class="text-xl font-extrabold text-slate-900"
+                x-text="lang === 'ar' ? 'معمارية وأداء النظام السحابي' : 'Architecture & Optimizations'"></h3>
+
+            <p class="text-slate-600 text-sm leading-relaxed"
+               x-text="lang === 'ar' ? currentProject.solution.ar : currentProject.solution.en"></p>
+
+            <div class="pt-2 border-t border-slate-100 flex items-center gap-2 text-xs text-brand-600 font-semibold">
+                <i class="fa-solid fa-bolt"></i>
+                <span x-text="lang === 'ar' ? 'استجابة فائقة وقواعد بيانات عالية الكفاءة' : 'Sub-millisecond query execution'"></span>
+            </div>
+        </div>
+
+        <!-- Card 3: Key System Features (مميزات النظام) -->
+        <div class="bg-white border border-emerald-200/80 rounded-3xl p-7 lg:p-8 space-y-5 relative overflow-hidden group hover:border-emerald-400 transition-all duration-300 shadow-lg shadow-slate-200/50" data-aos="fade-up" data-aos-delay="300">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold">
+                <i class="fa-solid fa-list-check"></i>
+            </div>
+
+            <span class="block text-xs font-extrabold uppercase tracking-widest text-emerald-600"
+                  x-text="lang === 'ar' ? 'مميزات النظام الرئيسية' : 'Key System Features'"></span>
+
+            <h3 class="text-xl font-extrabold text-slate-900"
+                x-text="lang === 'ar' ? 'أبرز الوحدات والوظائف' : 'Core System Capabilities'"></h3>
+
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
+                <template x-for="(feat, idx) in currentProject.features" :key="idx">
+                    <li class="flex items-start gap-2.5">
+                        <i class="fa-solid fa-circle-check text-emerald-500 text-base mt-0.5"></i>
+                        <span x-text="lang === 'ar' ? feat.ar : feat.en"></span>
+                    </li>
+                </template>
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- 4. Next Project Navigator -->
+    <section class="bg-white border border-slate-200/80 rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-slate-200/60" data-aos="zoom-in">
+        <div class="space-y-2 text-center md:text-start">
+            <span class="text-xs font-extrabold text-brand-600 uppercase tracking-widest"
+                  x-text="lang === 'ar' ? 'استكشف دراسة الحالة التالية' : 'Explore Next Case Study'"></span>
+            <h3 class="text-2xl font-black text-slate-900"
+                x-text="lang === 'ar' ? nextProject.title.ar : nextProject.title.en"></h3>
+            <p class="text-slate-500 text-xs sm:text-sm"
+               x-text="lang === 'ar' ? nextProject.category.ar : nextProject.category.en"></p>
+        </div>
+
+        <button @click="switchProject(nextSlug)" 
+                class="bg-slate-100 hover:bg-brand-600 hover:text-white text-slate-800 font-bold text-sm px-6 py-3.5 rounded-xl border border-slate-200 hover:border-brand-500 transition flex items-center gap-3 group">
+            <span x-text="lang === 'ar' ? 'عرض دراسة الحالة التالية' : 'View Next Case Study'"></span>
+            <i class="fa-solid" :class="lang === 'ar' ? 'fa-arrow-left group-hover:-translate-x-1' : 'fa-arrow-right group-hover:translate-x-1' + ' transition-transform'"></i>
+        </button>
+    </section>
+
+    <!-- 5. Direct Consultation Callout Section -->
+    <section class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-brand-600 via-brand-700 to-brand-800 p-8 sm:p-12 text-center space-y-6 shadow-2xl shadow-brand-600/25" data-aos="fade-up">
+        <div class="max-w-2xl mx-auto space-y-4 relative z-10">
+            <span class="inline-block bg-white/20 text-white border border-white/30 px-4 py-1.5 rounded-full text-xs font-extrabold"
+                  x-text="lang === 'ar' ? '⚡ هل تحتاج لنظام سحابي بنفس الجودة والإتقان؟' : '⚡ Need a High-Performance Software System?'"></span>
+            
+            <h2 class="text-2xl sm:text-4xl font-black text-white leading-snug"
+                x-text="lang === 'ar' ? 'فريق DevHubIT جاهز لبناء حلولك البرمجية المخصصة' : 'DevHubIT Engineering Team is Ready to Build Your Solution'"></h2>
+            
+            <p class="text-brand-100 text-xs sm:text-sm leading-relaxed"
+               x-text="lang === 'ar' ? 'تواصل معنا مباشرة لنناقش تفاصيل متطلباتك، ونحدد أفضل معمارية قواعد بيانات وتقنيات تناسب حجم أعمالك.' : 'Contact us directly to discuss your requirements, system architecture, and launch timeline.'"></p>
+            
+            <div class="pt-4 flex flex-wrap justify-center gap-4">
+                <a href="https://wa.me/201555646040?text=السلام%20عليكم،%20حابب%20أستفسر%20عن%20تطوير%20نظام%20برمجي%20مخصص" 
+                   target="_blank"
+                   class="bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-emerald-900/30 flex items-center gap-3 transition transform hover:scale-105">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <span x-text="lang === 'ar' ? 'طلب استشارة فنية عبر الواتساب' : 'Request Technical Consultation'"></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+
+<!-- Footer -->
+<footer class="mt-16 bg-slate-950 border-t border-slate-900 py-8 text-center text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-white font-bold text-sm">
+            <div class="w-6 h-6 bg-blue-600/10 text-blue-600 rounded-md flex items-center justify-center text-xs border border-blue-500/20">
+                <i class="fa-solid fa-circle-nodes text-blue-600"></i>
+            </div>
+            <span>Dev<span class="text-blue-600 font-black">Hub</span><span class="bg-emerald-500/10 text-emerald-600 text-[10px] px-1 py-0.5 rounded font-black border border-emerald-500/20 ml-0.5">IT</span></span>
+        </div>
+        <p>©2026 DevHubIT Software & IT Solutions. All rights reserved.</p>
+        <a href="index.html#portfolio" class="text-slate-400 hover:text-brand-400 transition" x-text="lang === 'ar' ? 'معرض الأعمال الكامل' : 'All Case Studies'"></a>
+    </div>
+</footer>
+
+<!-- Lightbox Modal Component -->
+<div x-show="lightboxOpen" 
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0 scale-95"
+     x-transition:enter-end="opacity-100 scale-100"
+     x-transition:leave="transition ease-in duration-200"
+     x-transition:leave-start="opacity-100 scale-100"
+     x-transition:leave-end="opacity-0 scale-95"
+     @keydown.escape.window="closeLightbox()"
+     class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 backdrop-blur-xl p-4 sm:p-8" 
+     style="display: none;">
+    
+    <!-- Close Button -->
+    <button @click="closeLightbox()" class="absolute top-6 right-6 text-slate-400 hover:text-white bg-slate-900 border border-slate-700 w-12 h-12 rounded-2xl flex items-center justify-center text-xl shadow-2xl z-50">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <!-- Modal Content Box -->
+    <div class="max-w-5xl max-h-[90vh] overflow-y-auto bg-slate-900 rounded-3xl border border-slate-800 p-2 shadow-2xl cursor-default">
+        <img :src="lightboxImg" class="w-full h-auto rounded-2xl object-contain">
+    </div>
+</div>
+
+<!-- AOS JS Script -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Alpine.js Application Logic -->
+<script>
+    function projectApp() {
+        return {
+            lang: 'en',
+            activeSlug: 'el-sokkary-erp',
+            lightboxOpen: false,
+            lightboxImg: '',
+            
+            slugList: [
+                'el-sokkary-erp',
+                'gym-management',
+                'efento-iot',
+                'vitazone-store',
+                'atech-automation',
+                'rowad-survey',
+                'econce-portal'
+            ],
+
+            projects: {
+                'el-sokkary-erp': {
+                    slug: 'el-sokkary-erp',
+                    title: {
+                        ar: 'مجموعة السكري - نظام ERP سحابي متكامل لإدارة الشركات والحسابات والمساهمين',
+                        en: 'El Sokkary Group - Custom Enterprise ERP & Financial Management System'
+                    },
+                    tagline: {
+                        ar: 'منظومة سحابية متكاملة (ERP) لإدارة التدفقات المالية، حسابات وأرباح المساهمين، دورات التحصيل، وتوليد التقارير الإدارية والمالية بدقة مع بوابة رقمية موحدة.',
+                        en: 'An all-in-one centralized enterprise ERP platform managing complex financial workflows, shareholder equity, collection tracking, and real-time executive reporting alongside the corporate web presence.'
+                    },
+                    category: {
+                        ar: 'أنظمة الـ ERP والإدارة',
+                        en: 'ERP & Management Systems'
+                    },
+                    industry: {
+                        ar: 'إدارة الشركات والمالية',
+                        en: 'Enterprise & Financial Management'
+                    },
+                    type: {
+                        ar: 'منظومة ERP سحابية متكاملة',
+                        en: 'Enterprise ERP Cloud Platform'
+                    },
+                    urlDisplay: 'sokarey.com/erp',
+                    liveUrl: 'https://sokarey.com',
+                    heroImage: 'img/Custom ERP & Enterprise Management System/WhatsApp Image 2026-08-06 at 5.23.13 PM.jpeg',
+                    techStack: ['Enterprise ERP System', 'Financial Dashboards', 'Shareholder Equity Management', 'Real-Time Executive Reporting'],
+                    gallery: [
+                        {
+                            img: 'img/Custom ERP & Enterprise Management System/WhatsApp Image 2026-08-06 at 5.23.13 PM.jpeg',
+                            title: { ar: 'لوحة التحكم الرئيسية للمنظومة المالية', en: 'Financial Executive Dashboard' },
+                            desc: { ar: 'نظرة عامة على التدفقات المالية والتحصيلات وأداء المساهمين.', en: 'Comprehensive overview of cash flows, collection metrics, and shareholder equity.' }
+                        },
+                        {
+                            img: 'img/Custom ERP & Enterprise Management System/WhatsApp Image 2026-08-06 at 5.23.13 PM (1).jpeg',
+                            title: { ar: 'إدارة أرباح وحسابات المساهمين', en: 'Shareholder Equity Ledger' },
+                            desc: { ar: 'تتبع نسب الأرباح والتوزيعات السنوية بدقة متناهية.', en: 'Detailed shareholder dividend distributions, ledger history, and equity tracking.' }
+                        },
+                        {
+                            img: 'img/Custom ERP & Enterprise Management System/WhatsApp Image 2026-08-06 at 5.23.13 PM (3).jpeg',
+                            title: { ar: 'دورة التحصيل والفواتير الذكية', en: 'Billing & Collection Tracking' },
+                            desc: { ar: 'أتمتة متابعة الفواتير والأقساط وتوليد الإشعارات المالية.', en: 'Automated billing cycles, installment schedule tracking, and payment receipts.' }
+                        }
+                    ],
+                    challenge: {
+                        ar: 'الحاجة إلى ربط إدارة الحسابات المتعددة، وتتبع مستحقات وأرباح المساهمين، وأتمتة دورات التحصيل والتقارير المالية بدقة وكفاءة عالية دون الاعتماد على المعالجة اليدوية.',
+                        en: 'Consolidating multi-subsidiary financial accounts, tracking shareholder equity distributions, and automating collection cycles with real-time audit control.'
+                    },
+                    solution: {
+                        ar: 'طورت DevHubIT نظام ERP سحابي مخصص يوفر لوحات تحكم مالية فورية، وتتبع دقيق لأرباح المساهمين والتحصيلات، مع تقارير إدارية شاملة وسرعة أداء عالية.',
+                        en: 'DevHubIT engineered a tailored cloud ERP solution delivering real-time financial dashboards, shareholder ledger tracking, automated billing alerts, and high-performance reporting.'
+                    },
+                    features: [
+                        { ar: 'إدارة الشؤون المالية والتدفقات النقدية والتحصيلات', en: 'Financial workflow & cash flow management' },
+                        { ar: 'تتبع حسابات المساهمين وتوزيعات الأرباح', en: 'Shareholder equity & ledger tracking' },
+                        { ar: 'توليد التقارير الإدارية والمالية التلقائية', en: 'Automated executive & financial reports' },
+                        { ar: 'لوحة تحكم إدارية مركزية متعددة الصلاحيات', en: 'Multi-role central administrative dashboard' }
+                    ]
+                },
+
+                'gym-management': {
+                    slug: 'gym-management',
+                    title: {
+                        ar: 'منصة إدارة وتتبع أداء المتدربين والأنشطة الرياضية',
+                        en: 'Fitness & Trainee Progress Management Platform'
+                    },
+                    tagline: {
+                        ar: 'لوحة تحكم تفاعلية تمكن المدربين من إدارة ملفات المشتركين، أتمتة بناء الجداول التدريبية والغذائية، ومتابعة تطور القياسات والنتائج بدقة.',
+                        en: 'A specialized coaching management system for organizing trainee profiles, automating personalized workout and nutrition plans, and tracking physical transformation metrics.'
+                    },
+                    category: {
+                        ar: 'أنظمة الـ ERP والإدارة',
+                        en: 'ERP & Management Systems'
+                    },
+                    industry: {
+                        ar: 'اللياقة البدنية والصحة',
+                        en: 'Health & Sports Management'
+                    },
+                    type: {
+                        ar: 'منصة إدارة تشغيلية سحابية',
+                        en: 'Operations Management Platform'
+                    },
+                    urlDisplay: 'gym.capmahmoud.com/dashboard',
+                    liveUrl: 'https://gym.capmahmoud.com',
+                    heroImage: 'img/gym/FireShot Capture 008 - View Trainee - [127.0.0.1].png',
+                    techStack: ['Operations Management', 'Trainee Tracking', 'Custom Program Builder', 'Interactive Dashboards'],
+                    gallery: [
+                        {
+                            img: 'img/gym/FireShot Capture 008 - View Trainee - [127.0.0.1].png',
+                            title: { ar: 'ملف المتدرب وسجل القياسات', en: 'Trainee Profile & Metrics' },
+                            desc: { ar: 'متابعة نسبة الدهون والوزن والكتلة العضلية مع تتبع التطور.', en: 'Comprehensive trainee profile with body fat %, muscle mass, and metric progression logs.' }
+                        },
+                        {
+                            img: 'img/gym/FireShot Capture 006 - My Workout Program - [127.0.0.1].png',
+                            title: { ar: 'برنامج التمارين التفاعلي', en: 'Personalized Workout Program' },
+                            desc: { ar: 'عرض التمارين والمجموعات والملاحظات اليومية الخاصة بالمتدرب.', en: 'Interactive daily workout routine view with targeted sets, reps, and exercise notes.' }
+                        },
+                        {
+                            img: 'img/gym/FireShot Capture 007 - My Nutrition Plan - [127.0.0.1].png',
+                            title: { ar: 'خطة التغذية والوجبات', en: 'Custom Nutrition & Diet Plan' },
+                            desc: { ar: 'جدول الوجبات السعرات الحرارية المقسمة حسب الأهداف البدنية.', en: 'Structured meal plans with calorie & macronutrient splits tailored to trainee goals.' }
+                        },
+                        {
+                            img: 'img/gym/FireShot Capture 003 - Create Workout Plan - [127.0.0.1].png',
+                            title: { ar: 'منشئ الخطط التدريبية (Workout Builder)', en: 'Interactive Plan Builder' },
+                            desc: { ar: 'لوحة تحكم المدرب لإعداد التمارين وربط الفيديوهات والتكرارات.', en: 'Trainer portal composer to build custom daily exercises and media links.' }
+                        }
+                    ],
+                    challenge: {
+                        ar: 'كانت إدارة الجيم تعاني من صعوبة متابعة تطور القياسات البدنية للمتدربين يدوياً، وتداخل الجداول التدريبية، وبطء استخراج التحليلات والرسوم البيانية لقياسات ونسب الدهون والكتلة العضلية.',
+                        en: 'Managing trainee progress manually led to tracking inaccuracies, conflicting workout schedules, and delayed analytics generation for body fat/muscle mass progressions.'
+                    },
+                    solution: {
+                        ar: 'طورت DevHubIT نظاماً سحابياً متكاملاً يتيح للمدرب بناء جداول تمارين مخصصة لكل لاعب، وحساب التغيرات التلقائية في القياسات مع رسم بياني فوري، ونظام صلاحيات مرن.',
+                        en: 'DevHubIT engineered a unified cloud platform automating custom workout routines, recalculating body metric progressions instantly with dynamic performance graphs, and enforcing multi-role access control.'
+                    },
+                    features: [
+                        { ar: 'إدارة ملفات المتدربين وسجل القياسات البدنية', en: 'Trainee profiles & physical metrics logging' },
+                        { ar: 'منشئ جداول التمارين التفاعلي (Workout Builder)', en: 'Interactive Workout Builder & routine composer' },
+                        { ar: 'توليد الرسوم البيانية التلقائية للتطور والنتائج', en: 'Automated chart & progression graph generation' },
+                        { ar: 'لوحة تحكم شاملة للمدربين والإداريين', en: 'Comprehensive multi-role admin dashboard' },
+                        { ar: 'نظام تنبيهات الاشتراكات والتجديدات الدورية', en: 'Subscription status tracking & renewal alerts' }
+                    ]
+                },
+
+                'efento-iot': {
+                    slug: 'efento-iot',
+                    title: {
+                        ar: 'إيفينتو - منصة تحليل قراءات الحساسات والتنبيهات الحية',
+                        en: 'Efento - IoT Sensor Analytics & Real-Time Alert Engine'
+                    },
+                    tagline: {
+                        ar: 'لوحة قيادة ذكية لمعالجة تدفق قراءات الحساسات البيئية والحرارية، توليد رسوم بيانية تفاعلية متقدمة، ونظام تنبيهات فوري عند حدوث انحراف في المعايير.',
+                        en: 'An intelligent cloud analytics dashboard designed to process high-volume sensor telemetry data, visualize environmental trends with interactive charts, and trigger automated instant alerts.'
+                    },
+                    category: {
+                        ar: 'تحليل البيانات والمنصات الذكية',
+                        en: 'Data Analytics & IoT'
+                    },
+                    industry: {
+                        ar: 'الإنترنت والتحليل الذكي (IoT)',
+                        en: 'IoT & Data Analytics'
+                    },
+                    type: {
+                        ar: 'منصة تحليلات ومحرك تنبيهات حي',
+                        en: 'Real-Time Analytics & Alert Engine'
+                    },
+                    urlDisplay: 'efento.io/analytics',
+                    liveUrl: 'https://efento.io',
+                    heroImage: 'img/photo-1531482615713-2afd69097998.jpg',
+                    techStack: ['Real-Time Data Engine', 'Interactive Charts', 'Automated Alert System', 'Environmental Telemetry'],
+                    gallery: [
+                        {
+                            img: 'img/photo-1531482615713-2afd69097998.jpg',
+                            title: { ar: 'لوحة التحكم والمؤشرات الحية', en: 'Telemetry Dashboard' },
+                            desc: { ar: 'قراءات مباشرة للحساسات البيئية مع التحليل الفوري.', en: 'Real-time telemetry feeds with instant threshold evaluation.' }
+                        },
+                        {
+                            img: 'img/photo-1451187580459-43490279c0fa.jpg',
+                            title: { ar: 'محرك التنبيهات والرسوم البيانية', en: 'Alert Engine & Trend Charts' },
+                            desc: { ar: 'عرض المخططات البيانية وتنبيهات التغير البيئي.', en: 'Interactive trend visualization and automated multi-channel notifications.' }
+                        }
+                    ],
+                    challenge: {
+                        ar: 'معالجة التدفق الضخم للقراءات الآتية من حساسات الحرارة والرطوبة والضغط البيئي دون أي تأخير، وإطلاق تنبيهات فورية للحيلولة دون أي أضرار تشغيلية.',
+                        en: 'Processing high-frequency sensor streams while offering instant visualization and zero-latency alert notifications upon anomaly detection.'
+                    },
+                    solution: {
+                        ar: 'قامت DevHubIT بهندسة منصة تحليلات سحابية متقدمة قادرة على استقبال ملايين القراءات وعرضها عبر رسوم بيانية تفاعلية مع نظام تنبيه ذكي وتلقائي.',
+                        en: 'DevHubIT engineered a robust cloud analytics engine handling high-volume IoT data streams, dynamic charting, and automated push notifications for critical environment monitoring.'
+                    },
+                    features: [
+                        { ar: 'معالجة فورية لقراءات أجهزة الاستشعار والحساسات', en: 'Real-time IoT sensor telemetry stream processing' },
+                        { ar: 'نظام تنبيهات فوري آلي عند انحراف المعايير', en: 'Automated alert trigger engine upon threshold breaches' },
+                        { ar: 'رسوم بيانية تفاعلية لتحليل الاتجاهات التاريخية', en: 'Interactive trend charts & historical data analytics' },
+                        { ar: 'إدارة شاملة للمواقع والأجهزة الحساسة', en: 'Comprehensive device taxonomy & location management' }
+                    ]
+                },
+
+                'vitazone-store': {
+                    slug: 'vitazone-store',
+                    title: {
+                        ar: 'فيتازون - منصة بيع إلكتروني متكاملة للمنتجات الصحية',
+                        en: 'Vitazone - High-Performance E-Commerce Platform'
+                    },
+                    tagline: {
+                        ar: 'متجر إلكتروني فائق السرعة لعرض وبيع المنتجات بتجربة تسوق سلسة، سلة شراء ذكية، وإدارة ديناميكية للمخزون والتصنيفات.',
+                        en: 'A fast, user-friendly digital storefront offering streamlined product browsing, frictionless checkout flows, and automated inventory and category management.'
+                    },
+                    category: {
+                        ar: 'المتاجر الإلكترونية',
+                        en: 'E-Commerce Solutions'
+                    },
+                    industry: {
+                        ar: 'التجارة الإلكترونية والتغذية',
+                        en: 'E-Commerce & Health Products'
+                    },
+                    type: {
+                        ar: 'متجر إلكتروني متكامل + سلة ذكية',
+                        en: 'High-Performance E-Commerce Store'
+                    },
+                    urlDisplay: 'vitazoneeg.com',
+                    liveUrl: 'https://vitazoneeg.com',
+                    heroImage: 'img/vitazone/screencapture-vitazonei-eg-2026-08-05-14_00_26.png',
+                    techStack: ['Digital Commerce', 'Inventory Management', 'Streamlined Checkout', 'High-Speed Data Engine'],
+                    gallery: [
+                        {
+                            img: 'img/vitazone/screencapture-vitazonei-eg-2026-08-05-14_00_26.png',
+                            title: { ar: 'الواجهة الرئيسية والمنتجات', en: 'Storefront Homepage' },
+                            desc: { ar: 'استعراض أفضل المكملات الغذائية والعروض.', en: 'Displaying top featured supplements, flash deals, and popular categories.' }
+                        },
+                        {
+                            img: 'img/vitazone/screencapture-vitazonei-eg-compare-2026-08-05-14_03_19.png',
+                            title: { ar: 'مقارنة المنتجات والمكونات', en: 'Supplement Comparison Engine' },
+                            desc: { ar: 'مقارنة تفصيلية للمكونات والقيم الغذائية للعملاء.', en: 'Detailed breakdown comparing nutrition specs and active ingredients.' }
+                        },
+                        {
+                            img: 'img/vitazone/screencapture-vitazonei-eg-category-2026-08-05-14_01_32.png',
+                            title: { ar: 'دليل الفئات والتصفية', en: 'Category Directory & Filter' },
+                            desc: { ar: 'تصفية سريعة حسب الأهداف الرياضية والعلامات التجارية.', en: 'Fast filter by fitness goals, brands, and product forms.' }
+                        }
+                    ],
+                    challenge: {
+                        ar: 'مساعدة العميل في تصفح ومقارنة المنتجات الصحية والمكملات الرياضية المعقدة بسرعة، وتسهيل عملية الطلب مع ضمان سرعة التحميل.',
+                        en: 'Customers struggled with choosing the right supplement formulations without clear ingredient comparison tools.'
+                    },
+                    solution: {
+                        ar: 'بنت DevHubIT متجراً سريعا يضم محرك مقارنة ذكي بين المنتجات وسلة مشتريات تفاعلية ونظام إدارة مخزون وسرعة معالجة عالية.',
+                        en: 'DevHubIT engineered a high-converting storefront featuring an interactive supplement comparison engine, dynamic cart, and streamlined checkout.'
+                    },
+                    features: [
+                        { ar: 'محرك مقارنة المنتجات والقيم الغذائية', en: 'Interactive product comparison engine' },
+                        { ar: 'كتالوج منتجات سريع مع فلترة حسب التصنيفات', en: 'Fast catalog filtering by health goals & categories' },
+                        { ar: 'سلة مشتريات تفاعلية وسلسة', en: 'Smooth interactive cart & checkout UI' },
+                        { ar: 'إدارة ديناميكية للمخزون والمنتجات', en: 'Automated inventory & stock management' }
+                    ]
+                },
+
+                'atech-automation': {
+                    slug: 'atech-automation',
+                    title: {
+                        ar: 'أتيك - بوابة الأعمال الرقمية لتقنيات الأتمتة والتحكم الصناعي',
+                        en: 'Atech - Automation & Industrial Tech Corporate Portal'
+                    },
+                    tagline: {
+                        ar: 'موقع تعريفي متطور يبرز حلول وخدمات الأتمتة الصناعية وهندسة التحكم، بتصميم تفاعلي يعكس موثوقية الشركة وهويتها التقنية.',
+                        en: 'A modern corporate presence engineered to showcase advanced industrial automation solutions, machinery systems, and service capabilities with an interactive tech-forward layout.'
+                    },
+                    category: {
+                        ar: 'بوابات الشركات والمواقع التعريفية',
+                        en: 'Corporate Portals'
+                    },
+                    industry: {
+                        ar: 'الأتمتة والتحكم الصناعي',
+                        en: 'Industrial Automation & Engineering'
+                    },
+                    type: {
+                        ar: 'بوابة رقمية مؤسسية + كتالوج مشاريع',
+                        en: 'Corporate Web Portal & Showcase'
+                    },
+                    urlDisplay: 'atech-automation.com',
+                    liveUrl: 'https://atech-automation.com',
+                    heroImage: 'img/atech/screencapture-atech-automation-2026-08-05-13_55_25.png',
+                    techStack: ['Industrial Tech Portal', 'Corporate Identity', 'Interactive Layout', 'Secure Infrastructure'],
+                    gallery: [
+                        {
+                            img: 'img/atech/screencapture-atech-automation-2026-08-05-13_55_25.png',
+                            title: { ar: 'الواجهة الرئيسية والخدمات', en: 'Homepage & Solutions' },
+                            desc: { ar: 'استعراض خدمات التحكم الآلي وأنظمة المباني الذكية.', en: 'Full showcase of industrial automation & smart building control systems.' }
+                        },
+                        {
+                            img: 'img/atech/screencapture-atech-automation-projects-2026-08-05-13_56_21.png',
+                            title: { ar: 'معرض المشاريع المنفذة', en: 'Engineering Projects' },
+                            desc: { ar: 'استعراض المشاريع الكبرى كفندق الماسة والمستشفيات.', en: 'Landmark project implementations including Massa Hotel & medical complexes.' }
+                        },
+                        {
+                            img: 'img/atech/screencapture-atech-automation-blog-discover-schneider-ecostruxure-building-operation-bms-system-2026-08-05-13_57_21.png',
+                            title: { ar: 'المدونة الهندسية المتخصصة', en: 'BMS Technical Blog' },
+                            desc: { ar: 'مقالات تقنية تفصيلية لشروحات أنظمة BMS والتحكم.', en: 'In-depth engineering articles on Schneider EcoStruxure & BMS architecture.' }
+                        }
+                    ],
+                    challenge: {
+                        ar: 'الحاجة إلى استعراض الحلول الهندسية المعقدة (مثل BMS و Schneider EcoStruxure) والمشاريع الضخمة كفندق الماسة بأسلوب بصري يرسخ ثقة العملاء ويحقق استجابة فائقة السرعة.',
+                        en: 'Presenting complex engineering standards (BMS, Schneider EcoStruxure) and landmark projects like Massa Hotel requires lightning-fast load times and a trust-inducing visual architecture.'
+                    },
+                    solution: {
+                        ar: 'قامت DevHubIT بهندسة منصة رقمية فائقة السرعة مع هيكلة مخصصة لعرض الخدمات، المشاريع، والمدونة الفنية، مقترنة بتحسين الاستعلامات للوصول لأسرع معدلات التحميل.',
+                        en: 'DevHubIT engineered an ultra-fast web system with dynamic project categorization, deep engineering service landing pages, and interactive technical blogs optimized for SEO and instantaneous rendering.'
+                    },
+                    features: [
+                        { ar: 'معرض مشاريع تفاعلي مع فلترة متقدمة للقطاعات', en: 'Interactive project showcase with dynamic sector filtering' },
+                        { ar: 'استعراض متكامل لأنظمة BMS والتحكم الآلي', en: 'Full presentation of BMS & Building Automation services' },
+                        { ar: 'مدونة هندسية متخصصة بنظام إدارة محتوى سريع', en: 'Technical engineering blog with SEO-optimized CMS' },
+                        { ar: 'تصميم متجاوب 100% يدعم اللغتين العربية والإنجليزية', en: '100% responsive design with dual language layout' },
+                        { ar: 'نماذج تواصل سريعة وربط مباشر مع الواتساب', en: 'Instant lead capture & WhatsApp direct integration' }
+                    ]
+                },
+
+                'rowad-survey': {
+                    slug: 'rowad-survey',
+                    title: {
+                        ar: 'رواد المساحة - المنصة الرقمية للخدمات والمعدات المساحية الهندسية',
+                        en: 'Ruwad Al-Masaaha - Surveying Engineering & Equipment Showcase'
+                    },
+                    tagline: {
+                        ar: 'بوابة تعريفية احترافية تستعرض الخدمات الهندسية المساحية ومعرضاً متكاملاً للأجهزة والمعدات مع المواصفات الفنية وإمكانية طلب العروض.',
+                        en: 'A specialized engineering showcase platform featuring precision surveying equipment catalogs, technical specifications, and corporate consultation services.'
+                    },
+                    category: {
+                        ar: 'بوابات الشركات والمواقع التعريفية',
+                        en: 'Corporate Portals'
+                    },
+                    industry: {
+                        ar: 'الهندسة والمعدات المساحية',
+                        en: 'Geospatial & Surveying Tech'
+                    },
+                    type: {
+                        ar: 'بوابة تعريفية + كتالوج معدات',
+                        en: 'Corporate Showcase & Product Catalog'
+                    },
+                    urlDisplay: 'rowadsurvey-sa.com',
+                    liveUrl: 'https://rowadsurvey-sa.com',
+                    heroImage: 'img/rowad/screencapture-rowadsurvey-sa-2026-08-05-13_43_39.png',
+                    techStack: ['Equipment Catalog', 'Engineering Services', 'Modern UX', 'Interactive Product Showcase'],
+                    gallery: [
+                        {
+                            img: 'img/rowad/screencapture-rowadsurvey-sa-2026-08-05-13_43_39.png',
+                            title: { ar: 'الواجهة الرئيسية والمنتجات', en: 'Homepage & Top Categories' },
+                            desc: { ar: 'استعراض أجهزة الـ GPS والـ Total Station والمستويات الضوئية.', en: 'Highlighting GPS RTK receivers, total stations, and auto-levels.' }
+                        },
+                        {
+                            img: 'img/rowad/screencapture-rowadsurvey-sa-product-a30-auto-level-2026-08-05-13_45_05.png',
+                            title: { ar: 'تفاصيل الجهاز والمواصفات الفنية', en: 'Product Specs Datasheet' },
+                            desc: { ar: 'صفحة منتج تفصيلية مع إمكانية تحميل الدليل الفني وطلب التسعيرة.', en: 'Comprehensive device datasheet with technical specs & instant quote request.' }
+                        },
+                        {
+                            img: 'img/rowad/screencapture-rowadsurvey-sa-blog-stonex-surveying-equipment-2026-08-05-13_50_50.png',
+                            title: { ar: 'مدونة أجهزة المساحة والتقنيات', en: 'Geospatial Tech Insights' },
+                            desc: { ar: 'شروحات أجهزة Stonex والتقنيات المساحية الحديثة.', en: 'Technical guides on Stonex GPS systems and surveying precision.' }
+                        }
+                    ],
+                    challenge: {
+                        ar: 'إدارة قائمة ضخمة من أجهزة المساحة الدقيقة وتوفير مواصفات تقنية معقدة بمرونة وسهولة للمهندسين والمقاولين.',
+                        en: 'Managing a rich catalog of high-precision surveying instruments with deep technical datasheets while maintaining fast search and filtering capabilities.'
+                    },
+                    solution: {
+                        ar: 'قامت DevHubIT بتطوير منصة تتيح تصفح المنتجات حسب الفئات، استعراض الملفات المواصفات، وطلب الاقتباسات المباشرة عبر الواتساب أو النموذج.',
+                        en: 'DevHubIT engineered a full-featured product catalog with dynamic category filters, product datasheet views, direct quote request engine, and localized setup.'
+                    },
+                    features: [
+                        { ar: 'تصنيف متطور لأجهزة المساحة (GPS / Total Stations / Levels)', en: 'Advanced product taxonomy (GPS, Total Stations, Auto-Levels)' },
+                        { ar: 'صفحات منتجات تفصيلية تنزل المواصفات الفنية', en: 'High-detail product spec pages with technical datasheets' },
+                        { ar: 'نظام طلب تسعيرة مباشر (Request Quote)', en: 'Instant quote & RFQ request engine via WhatsApp' },
+                        { ar: 'مدونة متخصصة في تقنيات المساحة والخرائط', en: 'Specialized surveying technology blog & knowledge center' }
+                    ]
+                },
+
+                'econce-portal': {
+                    slug: 'econce-portal',
+                    title: {
+                        ar: 'إيكونسي - الهوية الرقمية وبوابة الأعمال المؤسسية',
+                        en: 'Econce - Modern Corporate Business Presence'
+                    },
+                    tagline: {
+                        ar: 'بوابة أعمال عصرية تبرز رؤية الشركة وخدماتها الاستراتيجية بتصميم انسيابي وسرعة تصفح عالية على كافة الأجهزة.',
+                        en: 'A clean, modern corporate web portal focused on brand positioning, clear value proposition delivery, and seamless cross-device user experiences.'
+                    },
+                    category: {
+                        ar: 'بوابات الشركات والمواقع التعريفية',
+                        en: 'Corporate Portals'
+                    },
+                    industry: {
+                        ar: 'الخدمات والاستشارات المؤسسية',
+                        en: 'Corporate & Strategic Services'
+                    },
+                    type: {
+                        ar: 'بوابة رقمية عصرية متكاملة',
+                        en: 'Corporate Web Presence'
+                    },
+                    urlDisplay: 'econce.com',
+                    liveUrl: 'https://qudraegypt.com',
+                    heroImage: 'img/qudra/screencapture-qudraegypt-2026-08-05-13_34_32.png',
+                    techStack: ['Corporate Web Presence', 'Clean Architecture', 'Responsive Layout', 'Interactive Systems'],
+                    gallery: [
+                        {
+                            img: 'img/qudra/screencapture-qudraegypt-2026-08-05-13_34_32.png',
+                            title: { ar: 'الواجهة الرئيسية والخدمات', en: 'Homepage & Core Services' },
+                            desc: { ar: 'عرض الخدمات المؤسسية والرؤية الاستراتيجية للشركة.', en: 'Strategic corporate offerings and key enterprise capabilities.' }
+                        },
+                        {
+                            img: 'img/qudra/screencapture-qudraegypt-about-2026-08-05-13_34_55.png',
+                            title: { ar: 'صفحة عن الشركة والخبرات', en: 'Corporate Identity & Heritage' },
+                            desc: { ar: 'استعراض الهيكل التنظيمي والشهادات والجودة.', en: 'Company heritage, certifications, and enterprise values.' }
+                        }
+                    ],
+                    challenge: {
+                        ar: 'إبراز هوية الشركة الاستراتيجية وخدماتها المؤسسية بتصميم عصري راقٍ يضمن تصفحاً فائق السرعة وتجربة مستخدم متميزة.',
+                        en: 'Establishing a dominant digital corporate identity that communicates core business value with fluid responsiveness across all screen sizes.'
+                    },
+                    solution: {
+                        ar: 'صممت DevHubIT واجهات عصرية جذابة تركز على تعزيز موثوقية الشركة، مع تقديم عرض رقمي شامل للخدمات والحلول وسرعة تحميل استثنائية.',
+                        en: 'DevHubIT crafted a modern, high-contrast corporate web presence with clean layout hierarchy, smooth micro-interactions, and instant page transitions.'
+                    },
+                    features: [
+                        { ar: 'عرض عصري متكامل للهوية والخدمات المؤسسية', en: 'Modern corporate identity & service portfolio showcase' },
+                        { ar: 'تصميم متجاوب وسريع التحميل على كل الشاشات', en: 'High-speed responsive layout optimized for all devices' },
+                        { ar: 'نماذج استفسار وتواصل سريعة وربط بالواتساب', en: 'Direct consultation lead capture & WhatsApp integration' },
+                        { ar: 'معمارية محتوى واضحة وسلسة للمستثمرين والعملاء', en: 'Clear structural hierarchy for clients and stakeholders' }
+                    ]
+                }
+            },
+
+            get currentProject() {
+                return this.projects[this.activeSlug] || this.projects['el-sokkary-erp'];
+            },
+
+            get nextSlug() {
+                const currentIndex = this.slugList.indexOf(this.activeSlug);
+                const nextIndex = (currentIndex + 1) % this.slugList.length;
+                return this.slugList[nextIndex];
+            },
+
+            get nextProject() {
+                return this.projects[this.nextSlug];
+            },
+
+            init() {
+                const params = new URLSearchParams(window.location.search);
+                const slug = params.get('project');
+                if (slug && this.projects[slug]) {
+                    this.activeSlug = slug;
+                } else {
+                    this.activeSlug = 'el-sokkary-erp';
+                }
+
+                this.$nextTick(() => {
+                    if (typeof AOS !== 'undefined') {
+                        AOS.init({
+                            duration: 800,
+                            once: true,
+                            easing: 'ease-out-cubic'
+                        });
+                    }
+                });
+            },
+
+            switchProject(slug) {
+                if (this.projects[slug]) {
+                    this.activeSlug = slug;
+                    window.history.pushState({}, '', '?project=' + slug);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    this.$nextTick(() => {
+                        if (typeof AOS !== 'undefined') {
+                            AOS.refresh();
+                        }
+                    });
+                }
+            },
+
+            openLightbox(imgSrc) {
+                this.lightboxImg = imgSrc;
+                this.lightboxOpen = true;
+            },
+
+            closeLightbox() {
+                this.lightboxOpen = false;
+                this.lightboxImg = '';
+            }
+        }
+    }
+</script>
+</body>
+</html>
